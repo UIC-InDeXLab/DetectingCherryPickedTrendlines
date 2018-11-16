@@ -30,6 +30,7 @@ def load_from_csv(dataset, columns, headerIndex=0, nrows=-1):
         col = columns # the last one is the objective value
         data = pd.read_csv(filename,usecols = columns ,header=headerIndex) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows)
         n = len(data)
+        d = len(columns) - 1
 
 def RoI_S(Bconds, Econds):
         global B, E
