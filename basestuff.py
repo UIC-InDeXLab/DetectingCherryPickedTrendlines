@@ -1,5 +1,4 @@
-# Abolfazl Asudeh Nov. 2018
-#       http://asudeh.github.io
+# Abolfazl Asudeh,  http://asudeh.github.io
 
 import pandas as pd
 import numpy as np
