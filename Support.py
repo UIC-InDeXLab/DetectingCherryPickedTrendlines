@@ -26,7 +26,7 @@ def support(low, high):
 
 def support_rand_baseline(low, high, budget):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
     Rb = np.random.randint(len(B), size=budget)
     Re = np.random.randint(len(E), size=budget)
     sup = 0.
@@ -37,8 +37,15 @@ def support_rand_baseline(low, high, budget):
 
 def support_rand(low, high, budget):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
-    return
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
+    Rb = np.random.randint(len(B), size=budget)
+    Ep = sorted(E[np.random.randint(len(E), size=budget)])
+    sup = 0.
+    for i in range(budget):
+        Fl = Bsearch(B[Rb[i]]+low,Ep)
+        Fh = Bsearch(B[Rb[i]]+high,Ep)
+        sup+=Fh-Fl
+    return sup/(budget**2)
 
 
 # --------------------- Private -------------------------
@@ -53,7 +60,7 @@ def Bsearch(x,S): # returns the index of the first item LARGER than x in S
         else: 
             l = m+1
             break
-    while S[l] == x: l+=1
+    while l<len(S) and S[l] == x: l+=1
     return l
 
 
