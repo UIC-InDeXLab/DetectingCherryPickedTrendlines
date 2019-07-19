@@ -23,13 +23,15 @@ E = None; # the index of the points in End
 debugmod = 'on'  # type: string; turns the debug mode on and off
 
 
-def load_from_csv(dataset, columns, headerIndex=0, nrows=-1):
+def load_from_csv(dataset, columns, headerIndex=0, nrows=-1, datecols=None):
         global data,n,d, col
         filename = dataset
         col = columns # the last one is the objective value
-        data = pd.read_csv(filename,usecols = columns ,header=headerIndex) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows)
+        if datecols is None:  data = pd.read_csv(filename,usecols = columns ,header=headerIndex) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows)
+        else: data = pd.read_csv(filename,usecols = columns ,header=headerIndex, parse_dates=datecols) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows,parse_dates=datecols)
         n = len(data)
         d = len(columns) - 1
+        # print data
 
 def RoI_S(Bconds, Econds):
         global B, E
@@ -46,7 +48,7 @@ def RoI_S(Bconds, Econds):
                              st+= " WHERE " + col[i] + "<=" + str(Bconds[i][1])
                              first = False
                         else:   st+= " AND " + col[i] + "<=" + str(Bconds[i][1])
-        print st
+        #print st
         B = query(st)
         st = "SELECT * FROM data"
         first = True
@@ -61,7 +63,7 @@ def RoI_S(Bconds, Econds):
                              st+= " WHERE " + col[i] + "<=" + str(Econds[i][1])
                              first = False
                         else:   st+= " AND " + col[i] + "<=" + str(Econds[i][1])
-        print st
+        # print st
         E = query(st)
 
 # ------------------- Private functions ---------------------------

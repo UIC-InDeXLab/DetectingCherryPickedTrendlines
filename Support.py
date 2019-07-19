@@ -6,7 +6,11 @@ import numpy as np
 
 def support_baseline(low, high):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]]);
+    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    if len(B)==0 or len(E)==0: 
+        print len(B), len(E)
+        print 'Null ROI'
+        return None
     sup = 0.
     for b in B:
         for e in E:
@@ -17,6 +21,11 @@ def support_baseline(low, high):
 def support(low, high):
     d = basestuff.d; col = basestuff.col
     B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    print 'len(B), len(E): ', len(B), len(E)
+    if len(B)==0 or len(E)==0: 
+        print len(B), len(E)
+        print 'Null ROI'
+        return None
     sup = 0.
     for b in B:
         Fl = Bsearch(b+low,E)
