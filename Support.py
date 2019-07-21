@@ -21,7 +21,7 @@ def support_baseline(low, high):
 def support(low, high):
     d = basestuff.d; col = basestuff.col
     B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
-    print 'len(B), len(E): ', len(B), len(E)
+    #print 'len(B), len(E): ', len(B), len(E)
     if len(B)==0 or len(E)==0: 
         print len(B), len(E)
         print 'Null ROI'

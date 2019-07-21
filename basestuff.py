@@ -31,7 +31,6 @@ def load_from_csv(dataset, columns, headerIndex=0, nrows=-1, datecols=None):
         else: data = pd.read_csv(filename,usecols = columns ,header=headerIndex, parse_dates=datecols) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows,parse_dates=datecols)
         n = len(data)
         d = len(columns) - 1
-        # print data
 
 def RoI_S(Bconds, Econds):
         global B, E
@@ -65,6 +64,12 @@ def RoI_S(Bconds, Econds):
                         else:   st+= " AND " + col[i] + "<=" + str(Econds[i][1])
         # print st
         E = query(st)
+
+def RoI_Split():
+        global B,E
+        B = data.iloc[0:n/2]
+        E = B = data.iloc[n/2+1:n]
+        #print len(B), len(E)
 
 # ------------------- Private functions ---------------------------
 def query(querystring):
