@@ -10,7 +10,7 @@ RoI_Split()
 t = time()
 print support_baseline(10,50)
 print time()-t
-print support_constrainted(10,50,100)
+print support_constrainted(10,50,100,baseline=True)
 
 '''
 t = time()

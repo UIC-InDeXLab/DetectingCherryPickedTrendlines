@@ -5,6 +5,7 @@ from basestuff import *
 import red_black_tree
 from red_black_tree import *
 import numpy as np
+import math
 
 def support_baseline(low, high):
     d = basestuff.d; col = basestuff.col
@@ -58,7 +59,7 @@ def support_rand(low, high, budget):
         sup+=Fh-Fl
     return sup/(budget**2)
 
-def support_constrainted(low, high, window):
+def support_constrainted(low, high, window,baseline=False):
     d = basestuff.d; col = basestuff.col
     B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
     #print 'len(B), len(E): ', len(B), len(E)
@@ -67,16 +68,23 @@ def support_constrainted(low, high, window):
         print 'Null ROI'
         return None
     sup = 0.
-    rbt = RedBlackTree()
-    for i in range(window): rbt.insert(E[i])
-    i = 0
-    for b in B:
-        F1 = rbt.searchTree_smallercnt(b+low,window)
-        F2 = rbt.searchTree_smallercnt(b+high,window)
-        sup+=F2-F1
-        rbt.delete_node(E[i])
-        if(i+window<len(E)): rbt.insert(E[i+window])
-        i+=1
+    if baseline==True or window<=10*(math.log(len(E))/math.log(2)):
+        i = 0
+        for b in B:
+            for e in E[i:min(i+window,len(E)-1)]:
+                tmp = e-b
+                if tmp>=low and tmp<=high: sup+=1
+    else:
+        rbt = RedBlackTree()
+        for i in range(window): rbt.insert(E[i])
+        i = 0
+        for b in B:
+            F1 = rbt.searchTree_smallercnt(b+low,window)
+            F2 = rbt.searchTree_smallercnt(b+high,window)
+            sup+=F2-F1
+            rbt.delete_node(E[i])
+            if(i+window<len(E)): rbt.insert(E[i+window])
+            i+=1
     return sup/(len(B)*window)
 
 
