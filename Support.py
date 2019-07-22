@@ -9,7 +9,7 @@ import math
 
 def support_baseline(low, high):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
     if len(B)==0 or len(E)==0: 
         print len(B), len(E)
         print 'Null ROI'
@@ -61,7 +61,7 @@ def support_rand(low, high, budget):
 
 def support_constrainted(low, high, window,baseline=False):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
     #print 'len(B), len(E): ', len(B), len(E)
     if len(B)==0 or len(E)==0: 
         print len(B), len(E)
@@ -87,6 +87,27 @@ def support_constrainted(low, high, window,baseline=False):
             i+=1
     return sup/(len(B)*window)
 
+def tightest_statement(supportval): # 0<supportval<1
+    d = basestuff.d; col = basestuff.col
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
+    if len(B)==0 or len(E)==0: 
+        print len(B), len(E)
+        print 'Null ROI'
+        return None
+    l = [0]*(len(B)*len(E))
+    i=0
+    for b in B:
+        for e in E:
+            l[i]=e-b
+            i+=1
+    l = sorted(l)
+    delta = int(supportval * len(l))
+    min = 1000000. # infinity
+    Statement = None
+    for i in range(len(l) - delta-1):
+        if min>l[i+delta]-l[i]:
+            Statement = (l[i],l[i+delta])
+    return Statement
 
 # --------------------- Private -------------------------
 def Bsearch(x,S): # returns the index of the first item LARGER than x in S

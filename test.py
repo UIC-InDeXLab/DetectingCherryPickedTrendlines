@@ -7,12 +7,13 @@ filename = "data/brent-daily.csv"
 datecols = ['Date']
 load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=1000)
 RoI_Split()
+print tightest_statement(.8)
+
+'''
 t = time()
 print support_baseline(10,50)
 print time()-t
 print support_constrainted(10,50,100,baseline=True)
-
-'''
 t = time()
 print support(10,50)
 print time()-t
