@@ -3,12 +3,16 @@ from Support import *
 import basestuff
 from basestuff import *
 from time import time
-
-load_from_csv("data/Wine.csv",["Rank","Vintage","Score","Price"])
-RoI_S([(None,None),(None,None),(None,95)], [(None,None),(None,None),(96,None)])
+filename = "data/brent-daily.csv"
+datecols = ['Date']
+load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=1000)
+RoI_Split()
 t = time()
 print support_baseline(10,50)
 print time()-t
+print support_constrainted(10,50,100)
+
+'''
 t = time()
 print support(10,50)
 print time()-t
@@ -19,3 +23,4 @@ for i in range(10):
 
 #for i in range(10):
 #    print support_rand(10, 50, 10)
+'''

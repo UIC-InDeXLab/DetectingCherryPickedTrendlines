@@ -9,7 +9,7 @@ print 'Oil:'
 filename = "data/brent-daily.csv"
 datecols = ['Date']
 for n in [2000,4000,6000,8000,10000]:
-    load_from_csv(filename,columns = ['Date','Price'],nrows=n)
+    load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=n)
     RoI_Split()
     t = time()
     support(-100,100)
@@ -25,7 +25,7 @@ print 'CO2:'
 filename = "data/co2-ppm-daily.csv"
 datecols = ['date']
 for n in [2000,4000,6000,8000,10000]:
-    load_from_csv(filename,columns = ['date','value'],nrows=n)
+    load_from_csv(filename,columns = ['date','value'],datecols=datecols,nrows=n)
     RoI_Split()
     t = time()
     support(-100,100)

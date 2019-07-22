@@ -2,6 +2,8 @@
 
 import basestuff
 from basestuff import *
+import red_black_tree
+from red_black_tree import *
 import numpy as np
 
 def support_baseline(low, high):
@@ -55,6 +57,27 @@ def support_rand(low, high, budget):
         Fh = Bsearch(B[Rb[i]]+high,Ep)
         sup+=Fh-Fl
     return sup/(budget**2)
+
+def support_constrainted(low, high, window):
+    d = basestuff.d; col = basestuff.col
+    B = basestuff.B[col[d]]; E = sorted(basestuff.E[col[d]])
+    #print 'len(B), len(E): ', len(B), len(E)
+    if len(B)==0 or len(E)==0: 
+        print len(B), len(E)
+        print 'Null ROI'
+        return None
+    sup = 0.
+    rbt = RedBlackTree()
+    for i in range(window): rbt.insert(E[i])
+    i = 0
+    for b in B:
+        F1 = rbt.searchTree_smallercnt(b+low,window)
+        F2 = rbt.searchTree_smallercnt(b+high,window)
+        sup+=F2-F1
+        rbt.delete_node(E[i])
+        if(i+window<len(E)): rbt.insert(E[i+window])
+        i+=1
+    return sup/(len(B)*window)
 
 
 # --------------------- Private -------------------------
