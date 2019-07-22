@@ -5,9 +5,9 @@ from basestuff import *
 from time import time
 filename = "data/brent-daily.csv"
 datecols = ['Date']
-load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=1000)
+load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=10000)
 RoI_Split()
-print tightest_statement(.8)
+#print tightest_statement(.8)
 print MostSupportedStatement(20)
 
 '''

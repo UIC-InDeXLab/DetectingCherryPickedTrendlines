@@ -136,7 +136,7 @@ def MostSupportedStatement(delta):
 def Bsearch(x,S): # returns the index of the first item LARGER than x in S
     l = 0; h = len(S)-1
     # print "low: ", l, ", high: ", h
-    if x>S[len(S)-1]: return -1
+    if x>S[len(S)-1] or x<S[0]: return -1
     while l<h:
         m = (l+h)/2
         # print "low: ", l, ", high: ", h, ", mid: ", m
