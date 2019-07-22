@@ -31,7 +31,7 @@ for window in [10,100,1000,5000]:
     load_from_csv(filename,columns = ["datetime",'New York'],datecols=datecols,nrows=20000)
     RoI_Split()
     t = time()
-    #support_constrainted(-1,1,window,baseline=True)
+    support_constrainted(-1,1,window,baseline=True)
     t1=time()-t
     t = time()
     support_constrainted(-1,1,window)
