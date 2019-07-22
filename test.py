@@ -8,6 +8,7 @@ datecols = ['Date']
 load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=1000)
 RoI_Split()
 print tightest_statement(.8)
+print MostSupportedStatement(20)
 
 '''
 t = time()

@@ -109,10 +109,34 @@ def tightest_statement(supportval): # 0<supportval<1
             Statement = (l[i],l[i+delta])
     return Statement
 
+def MostSupportedStatement(delta):
+    d = basestuff.d; col = basestuff.col
+    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
+    if len(B)==0 or len(E)==0: 
+        print len(B), len(E)
+        print 'Null ROI'
+        return None
+    l = [0]*(len(B)*len(E))
+    i=0
+    for b in B:
+        for e in E:
+            l[i]=e-b
+            i+=1
+    l = sorted(l)
+    max = 0; Statement = None
+    for i in range(len(l)):
+        j=Bsearch(l[i]+delta,l)
+        if j==-1: break
+        if max < (j-i):
+            max = j-i
+            Statement = (l[i],l[j])
+    return max*1./len(l),Statement
+
 # --------------------- Private -------------------------
 def Bsearch(x,S): # returns the index of the first item LARGER than x in S
     l = 0; h = len(S)-1
     # print "low: ", l, ", high: ", h
+    if x>S[len(S)-1]: return -1
     while l<h:
         m = (l+h)/2
         # print "low: ", l, ", high: ", h, ", mid: ", m
