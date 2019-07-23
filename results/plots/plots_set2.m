@@ -1,0 +1,96 @@
+%%--------------------------- pp4
+goodplot();
+A = csvread('2-const-co2varywindow.csv');
+plot(A(:,2), A(:,3), '*-', 'LineWidth', 4,'markers',22,'Color', [200, 20, 20]/256);
+hold on; grid on;
+plot(A(:,2), A(:,4), 's-', 'LineWidth', 4,'markers',22,'Color', [20, 200, 20]/256);
+%text(1.2,A(1,6),strcat('\leftarrow',num2str(100*A(1,8)),'% non-zero cells'),'FontSize',22,'FontWeight','Bold');
+legend('Baseline', 'Exact','location','se');
+ylabel('time (sec) -- logscale');
+xlabel('width of window -- logscale');
+%axis([10000 40000 5*10^-1 10^1]);
+set(gca,'YTick',[10^-2,10^-1,10^0,10^1,10^2]);
+set(gca,'XTick',[10^1,10^2,10^3,5*10^3]);
+%set(gca,'xticklabels',{'N1','N2','N3','N4','N5','N6','N7'});
+%set(gca,'XTickLabelRotation',45)
+set(gca,'FontSize',22);
+set(gca,'FontWeight','Bold');
+set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(gca,'YScale','log');
+set(gca,'XScale','log');
+%xlabel('');
+%set(gca,'YTick',cellstr(num2str(round(log10(YTick(:))), '10^%d')));
+print -dpdf -r150 2_co2_1.pdf;
+hold off;
+%%
+goodplot();
+A = csvread('2-const-weathervarywindow.csv');
+plot(A(:,2), A(:,3), '*-', 'LineWidth', 4,'markers',22,'Color', [200, 20, 20]/256);
+hold on; grid on;
+plot(A(:,2), A(:,4), 's-', 'LineWidth', 4,'markers',22,'Color', [20, 200, 20]/256);
+%text(1.2,A(1,6),strcat('\leftarrow',num2str(100*A(1,8)),'% non-zero cells'),'FontSize',22,'FontWeight','Bold');
+legend('Baseline', 'Exact','location','se');
+ylabel('time (sec) -- logscale');
+xlabel('width of window -- logscale');
+axis([10^1 5*10^3 3*10^-2 2*10^1]);
+set(gca,'YTick',[10^-2,10^-1,10^0,10^1]);
+set(gca,'XTick',[10^1,10^2,10^3,5*10^3]);
+%set(gca,'xticklabels',{'N1','N2','N3','N4','N5','N6','N7'});
+%set(gca,'XTickLabelRotation',45)
+set(gca,'FontSize',22);
+set(gca,'FontWeight','Bold');
+set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(gca,'YScale','log');
+set(gca,'XScale','log');
+%xlabel('');
+%set(gca,'YTick',cellstr(num2str(round(log10(YTick(:))), '10^%d')));
+print -dpdf -r150 2_weather_1.pdf;
+hold off;
+%%
+goodplot();
+A = csvread('2-const-weathervaryN.csv');
+plot(A(:,1), A(:,3), '*-', 'LineWidth', 4,'markers',22,'Color', [200, 20, 20]/256);
+hold on; grid on;
+plot(A(:,1), A(:,4), 's-', 'LineWidth', 4,'markers',22,'Color', [20, 200, 20]/256);
+%text(1.2,A(1,6),strcat('\leftarrow',num2str(100*A(1,8)),'% non-zero cells'),'FontSize',22,'FontWeight','Bold');
+legend('Baseline', 'Exact','location','se');
+ylabel('time (sec) -- logscale');
+xlabel('n');
+axis([10000 40000 5*10^-1 10^1]);
+set(gca,'YTick',[10^0,10^1]);
+%set(gca,'xticklabels',{'N1','N2','N3','N4','N5','N6','N7'});
+%set(gca,'XTickLabelRotation',45)
+set(gca,'FontSize',22);
+set(gca,'FontWeight','Bold');
+set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(gca,'YScale','log');
+%xlabel('');
+%set(gca,'YTick',cellstr(num2str(round(log10(YTick(:))), '10^%d')));
+print -dpdf -r150 2_weather_2.pdf;
+hold off;
+%%
+goodplot();
+A = csvread('2-const-co2varyN.csv');
+plot(A(:,1), A(:,3), '*-', 'LineWidth', 4,'markers',22,'Color', [200, 20, 20]/256);
+hold on; grid on;
+plot(A(:,1), A(:,4), 's-', 'LineWidth', 4,'markers',22,'Color', [20, 200, 20]/256);
+%text(1.2,A(1,6),strcat('\leftarrow',num2str(100*A(1,8)),'% non-zero cells'),'FontSize',22,'FontWeight','Bold');
+legend('Baseline', 'Exact','location','nw');
+ylabel('time (sec) -- logscale');
+xlabel('n');
+axis([5000 20000 10^-1 10^1]);
+set(gca,'YTick',[10^-1,10^0,10^1]);
+%set(gca,'xticklabels',{'N1','N2','N3','N4','N5','N6','N7'});
+%set(gca,'XTickLabelRotation',45)
+set(gca,'FontSize',22);
+set(gca,'FontWeight','Bold');
+set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(gca,'YScale','log');
+%xlabel('');
+%set(gca,'YTick',cellstr(num2str(round(log10(YTick(:))), '10^%d')));
+print -dpdf -r150 2_co2_2.pdf;
+hold off;

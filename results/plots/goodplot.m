@@ -4,12 +4,12 @@ function goodplot( papersize, margin, fontsize )
     if nargin == 0
         papersize = 5.5;
         margin = 0.2;
-        fontsize = 18;
+        fontsize = 20;
     elseif nargin == 1
         margin = 0.5;
-        fontsize = 18;
+        fontsize = 20;
     elseif nargin == 2
-        fontsize = 18;
+        fontsize = 20;
     end
     set(get(gca,'xlabel'),'FontSize', fontsize, 'FontWeight', 'Bold');
     set(get(gca,'ylabel'),'FontSize', fontsize, 'FontWeight', 'Bold');
@@ -18,7 +18,7 @@ function goodplot( papersize, margin, fontsize )
     % axis square;
     set(gca,'defaultlinelinewidth',4)
     % set(gca,'LineWidth',2);
-    set(gca,'FontSize',16);
+    set(gca,'FontSize',20);
     set(gca,'FontWeight','Bold');
     set(gcf,'color','w');
     set(gcf,'PaperUnits','inches');

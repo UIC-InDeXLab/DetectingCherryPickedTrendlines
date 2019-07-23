@@ -42,6 +42,11 @@ def support_rand_baseline(low, high, budget):
     Rb = np.random.randint(len(B), size=budget)
     Re = np.random.randint(len(E), size=budget)
     sup = 0.
+    print len(E)
+    print 're', Re[0]
+    print E[315]
+    print E[Re[0]]
+    print B[Rb[0]]
     for i in range(budget):
         tmp = E[Re[i]]-B[Rb[i]]
         if tmp>=low and tmp<=high: sup+=1
