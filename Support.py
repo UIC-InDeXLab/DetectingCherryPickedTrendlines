@@ -38,25 +38,25 @@ def support(low, high):
 
 def support_rand_baseline(low, high, budget):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
-    Rb = np.random.randint(len(B), size=budget)
-    Re = np.random.randint(len(E), size=budget)
+    Bp = list(basestuff.B[col[d]]); Ep = list(basestuff.E[col[d]])
+    if len(Bp)==0 or len(Ep)==0: 
+        print len(Bp), len(Ep)
+        print 'Null ROI'
+        return None
+    Rb = np.random.randint(len(Bp), size=budget)
+    Re = np.random.randint(len(Ep), size=budget)
     sup = 0.
-    print len(E)
-    print 're', Re[0]
-    print E[315]
-    print E[Re[0]]
-    print B[Rb[0]]
     for i in range(budget):
-        tmp = E[Re[i]]-B[Rb[i]]
+        tmp = Ep[Re[i]]-Bp[Rb[i]]
         if tmp>=low and tmp<=high: sup+=1
     return sup/budget
 
 def support_rand(low, high, budget):
     d = basestuff.d; col = basestuff.col
-    B = basestuff.B[col[d]]; E = basestuff.E[col[d]]
+    B = list(basestuff.B[col[d]]); E = list(basestuff.E[col[d]])
     Rb = np.random.randint(len(B), size=budget)
-    Ep = sorted(E[np.random.randint(len(E), size=budget)])
+    indices = np.random.randint(len(E), size=budget)
+    Ep = sorted([E[i] for i in indices])
     sup = 0.
     for i in range(budget):
         Fl = Bsearch(B[Rb[i]]+low,Ep)
@@ -91,6 +91,22 @@ def support_constrainted(low, high, window,baseline=False):
             if(i+window<len(E)): rbt.insert(E[i+window])
             i+=1
     return sup/(len(B)*window)
+
+def support_rand_constrained(low, high, window, budget):
+    d = basestuff.d; col = basestuff.col
+    Bp = list(basestuff.B[col[d]]); Ep = list(basestuff.E[col[d]])
+    if len(Bp)==0 or len(Ep)==0: 
+        print len(Bp), len(Ep)
+        print 'Null ROI'
+        return None
+    Rb = np.random.randint(len(Bp), size=budget)
+    WRand = np.random.randint(window, size=budget)
+    sup = 0.
+    for i in range(budget):
+        j = WRand[i] + Rb[i] if WRand[i] + Rb[i]<len(Ep) else WRand[i]%(len(Ep)-Rb[i])+Rb[i]
+        tmp = Ep[j]-Bp[Rb[i]]
+        if tmp>=low and tmp<=high: sup+=1
+    return sup/budget
 
 def tightest_statement(supportval): # 0<supportval<1
     d = basestuff.d; col = basestuff.col
@@ -130,7 +146,7 @@ def MostSupportedStatement(delta):
     l = sorted(l)
     max = 0; Statement = None
     for i in range(len(l)):
-        j=Bsearch(l[i]+delta,l)
+        j=Bsearch(l[i]+delta,l,True)
         if j==-1: break
         if max < (j-i):
             max = j-i
@@ -138,10 +154,10 @@ def MostSupportedStatement(delta):
     return max*1./len(l),Statement
 
 # --------------------- Private -------------------------
-def Bsearch(x,S): # returns the index of the first item LARGER than x in S
+def Bsearch(x,S,retnegone=False): # returns the index of the first item LARGER than x in S
     l = 0; h = len(S)-1
     # print "low: ", l, ", high: ", h
-    if x>S[len(S)-1] or x<S[0]: return -1
+    if retnegone and x>S[len(S)-1] or x<S[0]: return -1
     while l<h:
         m = (l+h)/2
         # print "low: ", l, ", high: ", h, ", mid: ", m

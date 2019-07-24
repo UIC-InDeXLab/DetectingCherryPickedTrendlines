@@ -27,8 +27,8 @@ def load_from_csv(dataset, columns, headerIndex=0, nrows=-1, datecols=None):
         global data,n,d, col
         filename = dataset
         col = columns # the last one is the objective value
-        if datecols is None:  data = pd.read_csv(filename,usecols = columns ,header=headerIndex) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows)
-        else: data = pd.read_csv(filename,usecols = columns ,header=headerIndex, parse_dates=datecols) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows,parse_dates=datecols)
+        if datecols is None:  data = pd.read_csv(filename,usecols = columns ,header=headerIndex, skipinitialspace=True) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows, skipinitialspace=True)
+        else: data = pd.read_csv(filename,usecols = columns ,header=headerIndex, parse_dates=datecols, skipinitialspace=True) if nrows==-1 else pd.read_csv(filename, usecols = columns,header=headerIndex,nrows=nrows,parse_dates=datecols, skipinitialspace=True)
         n = len(data)
         d = len(columns) - 1
 

@@ -9,6 +9,17 @@ load_from_csv(filename,columns = ['Date','Price'],datecols=datecols,nrows=1000)
 RoI_Split()
 #print tightest_statement(.8)
 #print MostSupportedStatement(20)
+#print support_baseline(10,50)
+#print support(10,50)
+print support_rand_baseline(10, 50, 10)
+print support_rand_constrained(10, 50, 100,10)
+#print support_rand_baseline(10, 50, 10)
+
+for i in range(10):
+    v1 = np.var([support_rand_baseline(10, 50, 10) for j in range(10)])
+    v2 = np.var([support_rand(10, 50, 10) for j in range(10)])
+    print 'baseline: ', v1, 'smart: ', v2
+
 
 '''
 t = time()
@@ -18,11 +29,7 @@ print support_constrainted(10,50,100,baseline=True)
 t = time()
 print support(10,50)
 print time()-t
-'''
-support_rand_baseline(10, 50, 10)
-
-'''
-for i in range(2):
+for i in range(10):
     v1 = np.var([support_rand_baseline(10, 50, 10) for j in range(10)])
     v2 = np.var([support_rand(10, 50, 10) for j in range(10)])
     print 'baseline: ', v1, 'smart: ', v2
