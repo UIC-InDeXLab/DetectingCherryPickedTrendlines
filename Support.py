@@ -36,7 +36,7 @@ def support(low, high):
         sup+=Fh-Fl
     return sup/(len(B)*len(E))
 
-def support_rand_baseline(low, high, budget):
+def support_rand_baseline(low, high, budget,reporterror=False):
     d = basestuff.d; col = basestuff.col
     Bp = list(basestuff.B[col[d]]); Ep = list(basestuff.E[col[d]])
     if len(Bp)==0 or len(Ep)==0: 
@@ -49,7 +49,9 @@ def support_rand_baseline(low, high, budget):
     for i in range(budget):
         tmp = Ep[Re[i]]-Bp[Rb[i]]
         if tmp>=low and tmp<=high: sup+=1
-    return sup/budget
+    m = sup*1./budget
+    error = 1.96*m*(m-1)/budget # z_0.025 = 1.96
+    return sup/budget if reporterror==False else m,error
 
 def support_rand(low, high, budget):
     d = basestuff.d; col = basestuff.col
