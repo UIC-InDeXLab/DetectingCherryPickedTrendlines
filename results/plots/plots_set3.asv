@@ -36,8 +36,8 @@ hold on; grid on;
 ylabel('time (sec) - logscale');
 xlabel('n');
 set(gca,'YScale','log');
-axis([2000 10000 10^-1 10^3]);
-set(gca,'YTick',[10^-1,10^0,10^1,10^2]);
+axis([2000 10000 0 1]);
+%set(gca,'YTick',[10^-2,10^-1,10^0]);
 %set(gca,'xticklabels',{'N1','N2','N3','N4','N5','N6','N7'});
 %set(gca,'XTickLabelRotation',45)
 yyaxis right;
@@ -52,7 +52,7 @@ set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
 
 %xlabel('');
 %set(gca,'YTick',cellstr(num2str(round(log10(YTick(:))), '10^%d')));
-print -dpdf -r150 3-MSS-VN.pdf;
+% print -dpdf -r150 3-MSS-VN.pdf;
 hold off;
 %%
 goodplot();

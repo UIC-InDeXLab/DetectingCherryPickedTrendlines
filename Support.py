@@ -159,6 +159,7 @@ def MostSupportedStatement(delta):
 
 # --------------------- Private -------------------------
 def Bsearch(x,S,retnegone=False): # returns the index of the first item LARGER than x in S
+    # retnegone is a flag to say that the function should return -1 if the key is not in the range
     l = 0; h = len(S)-1
     # print "low: ", l, ", high: ", h
     if retnegone and x>S[len(S)-1] or x<S[0]: return -1
