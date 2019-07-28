@@ -1,4 +1,4 @@
-%%--------------------------- V1
+%%---------------------------
 goodplot();
 A = csvread('4-rand1.csv');
 h = bar(A);
@@ -6,13 +6,31 @@ hold on; grid on;
 % set(gca,'YScale','log');
 ylabel('variance');
 xlabel('support');
-legend('pair sampling','point sampling')
+legend('pair smp,N','pair smp,NlogN','point sampling')
 set(gca,'xticklabels',{'0.1','0.3','0.5','0.7','0.9','0.98'});
 set(gca,'FontSize',22);
 set(gca,'FontWeight','Bold');
 set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
 set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
 print -dpdf -r150 4_rand1.pdf;
+hold off;
+%%
+goodplot();
+A = csvread('4-rand1_2.csv');
+h = bar([10,20,30,40,50,60,70,80,90,100],A);
+hold on; grid on;
+% set(gca,'YScale','log');
+ylabel('variance');
+xlabel('N');
+legend('pair smp,N','pair smp,NlogN','point sampling')
+set(gca,'XLim',[5 105])
+% set(gca,'xticklabels',{'10','20','30','40','50','60','70','80','90','100'});
+% set(gca,'xticklabels',{10,20,30,40,50,60,70,80,90,100});
+set(gca,'FontSize',22);
+set(gca,'FontWeight','Bold');
+set(get(gca,'xlabel'),'FontSize', 22, 'FontWeight', 'Bold');
+set(get(gca,'ylabel'),'FontSize', 22, 'FontWeight', 'Bold');
+print -dpdf -r150 4_rand1_2.pdf;
 hold off;
 %% stock time
 goodplot();
