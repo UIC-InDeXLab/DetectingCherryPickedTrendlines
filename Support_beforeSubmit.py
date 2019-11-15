@@ -6,8 +6,6 @@ import red_black_tree
 from red_black_tree import *
 import numpy as np
 import math
-import heapq
-from sets import Set
 
 def support_baseline(low, high):
     d = basestuff.d; col = basestuff.col
@@ -20,7 +18,7 @@ def support_baseline(low, high):
     for b in B:
         for e in E:
             tmp = e-b
-            if tmp>low and tmp<=high: sup+=1
+            if tmp>=low and tmp<=high: sup+=1
     return sup/(len(B)*len(E))
 
 def support(low, high):
@@ -33,8 +31,8 @@ def support(low, high):
         return None
     sup = 0.
     for b in B:
-        Fl = Bsearch_alt(b+low,E)
-        Fh = Bsearch_alt(b+high,E)
+        Fl = Bsearch(b+low,E)
+        Fh = Bsearch(b+high,E)
         sup+=Fh-Fl
     return sup/(len(B)*len(E))
 
@@ -85,7 +83,6 @@ def support_constrainted(low, high, window,baseline=False):
             for e in E[i:min(i+window,len(E)-1)]:
                 tmp = e-b
                 if tmp>=low and tmp<=high: sup+=1
-            i+=1
     else:
         rbt = RedBlackTree()
         for i in range(window): rbt.insert(E[i])
@@ -177,50 +174,5 @@ def Bsearch(x,S,retnegone=False): # returns the index of the first item LARGER t
     while l<len(S) and S[l] == x: l+=1
     return l
 
-# --------------------- Added for comparison with [3] ------------------
-def support_ordered_enum(low, high, window=0):
-    d = basestuff.d; col = basestuff.col
-    B = list(basestuff.B[col[d]]); E = list(basestuff.E[col[d]])
-    if len(B)==0 or len(E)==0: 
-        print len(B), len(E)
-        print 'Null ROI'
-        return None
-    pq = []
-    heapq.heappush(pq, (0.0,0,0,E[0]-B[0]))
-    visited = Set([(0,0)])
-    sup = 0.
-    while pq:
-        (_, x, y, val) = heapq.heappop(pq)
-        if val>low and val<=high: sup+=1
-	x2 = x+1
-        if (window <= 0 or x2 <= y) and x2<len(B) and (x2,y) not in visited:
-            visited.add((x2,y))
-            heapq.heappush(pq, (L2Norm(x2,y),x2,y,E[y]-B[x2]))
-        y2 = y+1
-        if (window <= 0 or y2<x+window) and y2<len(E) and (x,y2) not in visited:
-            visited.add((x,y2))
-            heapq.heappush(pq, (L2Norm(x,y2),x,y2,E[y2]-B[x]))
-    if window <= 0:
-        return sup/(len(B)*len(E))
-    else:
-        return sup/(len(B)*window)
 
-def Bsearch_alt(x,S): # returns # items LESS THAN OR EQUAL TO x in S
-    ans = 0
-    lo = 0; hi = len(S)
-    while lo < hi:
-        if x < S[lo]: break
-        if x >= S[hi - 1]:
-            ans += hi-lo
-            break
-        mid = (lo+hi) / 2
-        if S[mid] <= x:
-            ans += mid-lo+1
-            lo = mid+1
-        else:
-            hi = mid
-    return ans
-
-def L2Norm(x,y):
-    return math.sqrt(x**2 + y**2)
 
