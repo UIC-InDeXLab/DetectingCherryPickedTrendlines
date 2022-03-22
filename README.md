@@ -13,3 +13,7 @@ The following are a few examples you can use: ExampleScript.py, test.py, test2.p
 [1] Asudeh, Abolfazl, Hosagrahar Visvesvaraya Jagadish, You Wu, and Cong Yu. "On detecting cherry-picked trendlines". Proceedings of the VLDB Endowment , Vol. 13(6), pages 1276--1288, 2020, VLDB Endowment.
 
 [2] Abolfazl Asudeh, You (Will) Wu, Cong Yu, H. V. Jagadish. "Perturbation-based Detection and Resolution of Cherry-picking". Data Engineering Bulletin, Vol. 45(3), pages 39--51, 2021, Special Issue on Challenges in Combating Misinformation.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
