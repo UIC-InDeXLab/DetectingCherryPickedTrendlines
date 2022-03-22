@@ -1,1 +1,0 @@
-nohup python -u exp4-rand2.py >results/4.out 2>results/4.err </dev/null &
