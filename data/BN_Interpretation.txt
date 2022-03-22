@@ -1,5 +1,0 @@
-carat: x*2.51
-depth: x*80
-lwr: x*2.75
-table: x*85
-price: (1-x)*13829
