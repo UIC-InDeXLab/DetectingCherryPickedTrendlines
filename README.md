@@ -17,3 +17,5 @@ The following are a few examples you can use: ExampleScript.py, test.py, test2.p
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+<p align="center"><img width="20%" src="https://www.cs.uic.edu/~indexlab/imgs/InDeXLab2.gif"></p>
